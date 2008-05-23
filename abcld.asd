@@ -9,8 +9,8 @@
     ((:module java :pathname ""
 	      :serial t
 	      :components 
-	      ((:file "abcld")
-	       (:file "abcl-dynamic")))))
+	      ((:file "packages")
+	       (:file "abcl")))))
 
 (defsystem :abcl-dynamic-test
     :name "org.not.abcl.test"
