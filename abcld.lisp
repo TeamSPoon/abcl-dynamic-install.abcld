@@ -1,7 +1,10 @@
-;;; Routines to facilitate scripting Java dynamically from CL
+;;;; -*- Mode: LISP; Syntax: COMMON-LISP -*-
+;;;; Copyright (C) 2008 by Mark <evenson.not.org@gmail.com.
+;;;; Use and distribution, without any warranties, under the terms of the 
+;;;  GNU Library General Public License, readable in http://www.fsf.org/copyleft/lgpl.html
+
+;;;; Routines to facilitate scripting Java dynamically from Common Lisp.
 (in-package #:abcld)
-
-
 
 (defconstant +java-null+ 
   (make-immediate-object nil :ref) 
@@ -12,10 +15,6 @@
   `(if *verbose*
       (format t (concatenate 'string "~&" ,message ) ,@parameters)
       (finish-output)))
-
-;;; XXX Why can't one just export such a symbol?
-(defmacro get-java-field (object field &optional try-harder)
-  `(cl-user::get-java-field ,object ,field ,try-harder))
 
 
 ;;; XXXX 
@@ -30,14 +29,14 @@
 
 (defun introspect (name-or-ref)
   ;; presumably not in default classpath
-  (verbose "type-of ~A" name-or-ref)
+  (verbose "Type-of ~A" name-or-ref)
   (when (typep name-or-ref 'java-object)
     (class-of name-or-ref))
   (when (typep name-or-ref 'string)
     (introspect-classpath name-or-ref)))
 
 (defun instantiate (introspected)
-  (verbose "~&Instantiating a ~A" introspected)
+  (verbose "Attempting to instantiate a/an ~A." introspected)
   (let* ((fully-qualified-classname 
 	  (if (jinstance-of-p introspected "java.lang.Class")
 	      (#"getName" introspected)
@@ -87,13 +86,19 @@
 
 (defvar *instantiate-hooks*
   (make-hash-table :test #'equal)
-  "Hash of strings representing Java classnames to instantiate hooks")
+  "Hash of strings representing Java classnames and their associated instantiate hooks.")
 
 (defun add-instantiate-hook (classname hook)
-  "Possibly replace string indexed CLASSNAME with an instaniation HOOK
+  "Possibly replace string indexed CLASSNAME with an instantiate HOOK
   of the form #'(lambda (classname) ..."
   (setf (gethash classname *instantiate-hooks*)
 	hook))
+
+(defun enumerate-instantiate-hooks (&optional (hook-table *instantiate-hooks*))
+  (loop 
+     :for key :being :each :hash-values :of hook-table
+     :collecting key))
+  
 
 ;;; XXX generalize to returning different types of java.io.* interfaces
 (defun jstream (file)
@@ -122,13 +127,15 @@
   (class-for-name-dynamic-classpath classname))
 
 (defun class-for-name-dynamic-classpath (classname)
+  (find-java-class classname))
+#| Uggh.  What was I smoking?
   (flet ((dynamic-classloader (classname)
 	 (#"getClassLoader" (jobject-class classname)))
 	 (introspect-classloaders ()
 	   "dclass,Class"))
     (#"forName" 'java.lang.Class classname nil
 		(dynamic-classloader (introspect-classloaders)))))
-	
+|#
 
 (defun jhashtable (hashtable)
   "Create a java.util.Hashtable from a HASHTABLE"
