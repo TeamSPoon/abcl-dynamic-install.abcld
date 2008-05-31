@@ -1,7 +1,7 @@
 ;;;; -*- Mode: LISP; Syntax: COMMON-LISP -*-
-;;;; Copyright (C) 2008 by Mark <evenson.not.org@gmail.com.
+;;;; Copyright (C) 2008 by Mark <evenson.not.org@gmail.com>
 ;;;; Use and distribution, without any warranties, under the terms of the 
-;;;  GNU Library General Public License, readable in http://www.fsf.org/copyleft/lgpl.html
+;;;; <http://www.fsf.org/copyleft/lgpl.html> is "GNU Library General Public License"
 
 ;;;; Routines to facilitate scripting Java dynamically from Common Lisp.
 (in-package #:abcld)

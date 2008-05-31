@@ -1,11 +1,11 @@
 ;;;; -*- Mode: LISP; Syntax: COMMON-LISP -*-
 ;;;; Copyright (C) 2008 by Mark <evenson.not.org@gmail.com>
 ;;;; Use and distribution, without any warranties, under the terms of the 
-;;;  GNU Library General Public License, readable in http://www.fsf.org/copyleft/lgpl.html
+;;;; <http://www.fsf.org/copyleft/lgpl.html> is "GNU Library General Public License"
+
 (in-package :org.not.recursive.java.bytecode)
 
-;;;; Tanatlizingly not-working, huh?  visit urn:recursive.not.org for cannonical source
-
+;;;; XXX Need public packaging for :ORG.NOT code -- [ME May 31, 2008]
 #:+abcl 
 (defun get-class (function)
   (read-classfile (jarray-byte->string (get-class-bytes function))))
