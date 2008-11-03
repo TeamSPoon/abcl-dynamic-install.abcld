@@ -9,18 +9,20 @@
 
 
 (defpackage :abcld
-  (:use :common-lisp :java)
+  (:use :common-lisp
+	:java)
   (:import-from :cl-user 
+
 		;;; polluted by JSS
 		*added-to-classpath*
 		:new
 		:find-java-class
-		:get-java-field)
-  
+		:get-java-field
+
 		;;; XXX Don't know why this isn't exported
 		;;; Originially from ABCL's JAVA package
-		;abcl-java-imports)
-     (:export 
+		:jmethod :jobject-class :jfield-raw)
+  (:export 
    ;;; control abstractions for unpackaged JSS 
    *added-to-classpath*
    :new
@@ -30,32 +32,26 @@
    
    :jmethod :jobject-class :jfield-raw
 
-   #:get-java-field
+   :jclass-name
 
-   #:verbose *verbose*
+   :get-java-field
 
-   #:jenum
+   :verbose *verbose*
+
+   :jenum
    +java-null+
-   #:introspect
+   :introspect
 
-   #:instantiate
+   :instantiate
 
-   #:add-instantiate-hook
+   :add-instantiate-hook
 
-   #:jstream
-   #:jfield-static 
-   #:jclass-dynamic
+   :jstream
+   :jfield-static 
+   :jclass-dynamic
    
-   #:jhashtable
-
-   #:with-registered-exception
+   :with-registered-exception
    
-   #:find-java-class
-   #:jobject-public))
-
-(defpackage :org.not.abcl.test
-  (:use :common-lisp
-	:abcld))
-
-(in-package #:abcld)
+   :find-java-class
+   :jobject-public))
 

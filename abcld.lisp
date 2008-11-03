@@ -10,7 +10,7 @@
   (make-immediate-object nil :ref) 
   "A 'null' reference Java object")
 
-(defvar *verbose* t)
+(defvar *verbose* nil)
 (defmacro verbose (message &rest parameters)
   `(if *verbose*
       (format t (concatenate 'string "~&" ,message ) ,@parameters)
@@ -170,3 +170,8 @@
 ;; (eval-when (:load-toplevel :execute)
 ;;   ;; XXX ensure we are binding to the same symbol as produced by JSS
 ;;   (setf *dynamic-classpath* cl-user::*added-to-classpath*))
+
+(defmacro jclass-name (object)
+  `(first (multiple-value-list (java::jclass-of ,object))))
+
+
