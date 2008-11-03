@@ -171,7 +171,7 @@
 ;;   ;; XXX ensure we are binding to the same symbol as produced by JSS
 ;;   (setf *dynamic-classpath* cl-user::*added-to-classpath*))
 
-(defmacro jclass-name (object)
+(defmacro jclass-name-string (object)
   `(first (multiple-value-list (java::jclass-of ,object))))
 
 

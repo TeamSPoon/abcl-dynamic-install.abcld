@@ -32,7 +32,7 @@
    
    :jmethod :jobject-class :jfield-raw
 
-   :jclass-name
+   :jclass-name-string
 
    :get-java-field
 
