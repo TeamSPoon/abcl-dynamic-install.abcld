@@ -174,4 +174,7 @@
 (defmacro jclass-name-string (object)
   `(first (multiple-value-list (java::jclass-of ,object))))
 
+(in-package :asdf)
+
+(defmethod source-file-type ((c jar-file) (s module)) "jar")
 

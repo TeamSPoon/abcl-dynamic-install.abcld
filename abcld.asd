@@ -12,6 +12,7 @@
     :name "org.not.recursive.abcl.dynamic.install"
     :version "20081103"
     :depends-on (:jss) 
+    :in-order-to ((load-op (load-op :jss)))
     :components
     ((:module java :pathname ""
 	      :serial t
