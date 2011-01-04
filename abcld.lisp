@@ -1,5 +1,5 @@
 ;;;; -*- Mode: LISP; Syntax: COMMON-LISP -*-
-;;;; Copyright (C) 2008 by Mark <evenson.not.org@gmail.com>
+;;;; Copyright (C) 2008-11 by Mark <evenson.not.org@gmail.com>
 ;;;; Use and distribution, without any warranties, under the terms of the 
 ;;;; <http://www.fsf.org/copyleft/lgpl.html> is "GNU Library General Public License"
 
@@ -77,12 +77,6 @@
 							 'DefaultWSMLReasonerFactory)))))
 	 (enum-constants (#"getEnumConstants" enum-class)))
     (find enum enum-constants :key key :test test)))
-
-
-;;; XXX
-(defmethod print-object ((object java-object) stream )
-  (print-unreadable-object (object stream :type t)
-    (format stream "print-object" )))
 
 (defvar *instantiate-hooks*
   (make-hash-table :test #'equal)
@@ -174,7 +168,7 @@
 (defmacro jclass-name-string (object)
   `(first (multiple-value-list (java::jclass-of ,object))))
 
+;;; Properly, this should be a patch to lsw/jss
 (in-package :asdf)
-
 (defmethod source-file-type ((c jar-file) (s module)) "jar")
 
