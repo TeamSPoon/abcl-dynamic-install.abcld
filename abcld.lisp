@@ -10,6 +10,12 @@
   (make-immediate-object nil :ref) 
   "A 'null' reference Java object")
 
+(defmacro new-array (element-type &rest dimensions)
+  "Creates a new Java array of type ELEMENT-TYPE with the given DIMENSIONS."
+  
+  `(jnew-array (find-java-class ,element-type) ,@dimensions))
+  
+
 (defvar *verbose* nil)
 (defmacro verbose (message &rest parameters)
   `(if *verbose*
