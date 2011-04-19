@@ -18,6 +18,8 @@
 		:find-java-class
 		:get-java-field
 
+                :invoke
+
 		;;; XXX Don't know why this isn't exported
 		;;; Originially from ABCL's JAVA package
 		:jmethod :jobject-class :jfield-raw)
@@ -28,7 +30,8 @@
    :find-java-class
    :get-java-field
 
-   
+   :invoke
+
    :jmethod :jobject-class :jfield-raw
 
    :jclass-name-string
@@ -52,5 +55,7 @@
    :with-registered-exception
    
    :find-java-class
-   :jobject-public))
+   :jobject-public
+
+   :jarray-from-list))
 

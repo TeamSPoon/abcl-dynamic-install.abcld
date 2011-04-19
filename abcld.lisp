@@ -154,9 +154,8 @@
          ,@body)
      (unregister-java-exception ,exception)))
 
-
 (defun jobject-public (object)
-  "Return the public methods and fields of an instance of OBJECT"
+  "Return the public methods and fields of an instance of OBJECT."
   (let ((class (jobject-class object)))
     (values 
      (map 'list 
@@ -165,7 +164,6 @@
 		  (jmethod-params method)))
 	  (jclass-methods class))
      (map 'list #'jfield-name  (jclass-fields class)))))
-    
   
 ;; (eval-when (:load-toplevel :execute)
 ;;   ;; XXX ensure we are binding to the same symbol as produced by JSS
@@ -177,4 +175,11 @@
 ;;; Properly, this should be a patch to lsw/jss
 (in-package :asdf)
 (defmethod source-file-type ((c jar-file) (s module)) "jar")
+
+(in-package :abcld)
+(defun jarray-from-list (list)
+  "Return a Java array from a list of objects, possibly looking on the
+JSS dynamic classpath."
+  (let ((class (jobject-class (first list))))
+    (java::jnew-array-from-list class list)))
 
