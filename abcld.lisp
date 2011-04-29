@@ -3,25 +3,24 @@
 ;;;; Use and distribution, without any warranties, under the terms of the 
 ;;;; <http://www.fsf.org/copyleft/lgpl.html> is "GNU Library General Public License"
 
-;;;; Routines to facilitate scripting Java dynamically from Common Lisp.
+;;;; Routines to facilitate scripting Java dynamically from Armed Bear Common Lisp.
 (in-package #:abcld)
 
 (defconstant +java-null+ 
   (make-immediate-object nil :ref) 
-  "A 'null' reference Java object")
+  "A Java object containing a 'null' reference.")
 
-(defmacro new-array (element-type &rest dimensions)
-  "Creates a new Java array of type ELEMENT-TYPE with the given DIMENSIONS."
-  
-  `(jnew-array (find-java-class ,element-type) ,@dimensions))
-  
+(defvar *verbose* nil
+  "When set, *VERBOSE* indicates the stream to log verbose messages to.")
 
-(defvar *verbose* nil)
+;;; c.f. http://nklein.com/2011/04/delayed-evaluation-across-packages/
+;;;
+;;; The question is whether creating a closure is generally cheaper
+;;; than evaluating arguments to FORMAT?
 (defmacro verbose (message &rest parameters)
-  `(if *verbose*
-      (format t (concatenate 'string "~&" ,message ) ,@parameters)
-      (finish-output)))
-
+  `(when *verbose*
+     (format *verbose* (funcall (lambda() (format nil ,message ,@parameters))))
+     (finish-output *verbose*)))
 
 ;;; XXXX 
 #|
