@@ -20,7 +20,7 @@
 
                 :invoke
 
-		;;; XXX Don't know why this isn't exported
+		;;; XXX Don't know why these aren't exported
 		;;; Originially from ABCL's JAVA package
 		:jmethod :jobject-class :jfield-raw)
   (:export 
